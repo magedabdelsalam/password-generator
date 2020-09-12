@@ -1,5 +1,5 @@
 # 03 Password Generator
-Generate a random password. You can customize your password by choosing how long and complex. You can choose between lower case, upper case, numeric, or special characters. Enjoy!
+Generate a random password. You can make it short (8 character minium) or long (128 character maximum). You can include some or all character types (lower case, upper case, numeric, or special characters), but must at least have one. Enjoy!
 
 ## Links
 * [Password Generator App](https://magedabdelsalam.com/password-generator/)
