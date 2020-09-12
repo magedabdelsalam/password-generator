@@ -40,22 +40,26 @@ function writePassword() {
   var lowerCaseArr = "abcdefghijklmnopqrstuvwxyz";
   var upperCaseArr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   var numericArr = "0123456789";
-  var specialChrsArr = "~!@#$%^&*()_+-=,./<>?;:";
+  var specialChrArr = "~!@#$%^&*()_+-=,./<>?;:";
   var randomChr = "";
   var randomNumber = "";
   var password = "";
 
   if (lowerCase){
     randomChr = randomChr + lowerCaseArr;
+    var noLowerCase = true ;
   }
   if (upperCase){
     randomChr = randomChr + upperCaseArr;
+    var noUpperCase = true ;
   }
   if (numeric){
     randomChr = randomChr + numericArr;
+    var noNumeric = true ;
   }
   if (specialChrs){
-    randomChr = randomChr + specialChrsArr;
+    randomChr = randomChr + specialChrArr;
+    var noSpecialChr = true ;
   }
 
   console.log(randomChr);
@@ -68,69 +72,66 @@ function writePassword() {
     console.log(password);
   }
 
-  var randomLetter = Math.floor(Math.random() * password.length);
-  var randomLowerCase = Math.floor(Math.random() * lowerCaseArr.length);
-  var randomUpperCase = Math.floor(Math.random() * upperCaseArr.length);
-  var randomNumeric = Math.floor(Math.random() * numericArr.length);
-  var randomSpecialChrs = Math.floor(Math.random() * specialChrsArr.length);
+  password = password.split("");
+  console.log(password);
 
-  for (var i=0; i<lowerCaseArr.length; i++) {
-    if (password.includes(lowerCaseArr[i])) {
-      var lowerCaseFound = true;
-      break;
+  for (var i=0; i<password.length; i++) {
+    for (var j=0; j<lowerCaseArr.length; j++){
+      if (password.includes(lowerCaseArr[j])) {
+        noLowerCase = false ;
+        break;
+      }
     }
-  }
-  for (var i=0; i<upperCaseArr.length; i++) {
-    if (password.includes(upperCaseArr[i])) {
-      var upperCaseFound = true;
-      break;
+    for (var j=0; j<upperCaseArr.length; j++){
+      if (password.includes(upperCaseArr[j])) {
+        noUpperCase = false ;
+        break;
+      }
     }
-  }
-  for (var i=0; i<numericArr.length; i++) {
-    if (password.includes(numericArr[i])) {
-      var numericFound = true;
-      break;
+    for (var j=0; j<numericArr.length; j++){
+      if (password.includes(numericArr[j])) {
+        noNumeric = false ;
+        break;
+      }
     }
-  }
-  for (var i=0; i<specialChrsArr.length; i++) {
-    if (password.includes(specialChrsArr[i])) {
-      var specialChrsFound = true;
-      break;
+    for (var j=0; j<specialChrArr.length; j++){
+      if (password.includes(specialChrArr[j])) {
+        noSpecialChr = false ;
+        break;
+      }
     }
   }
 
-  if (lowerCaseFound != true){
-    password = password.split("");
-    console.log(password);
+  if (noLowerCase){
+    var randomLetter = Math.floor(Math.random() * password.length);
+    var randomLowerCase = Math.floor(Math.random() * lowerCaseArr.length);
     var splicePass = password.splice(randomLetter, 1,lowerCaseArr[randomLowerCase]);
     console.log(password);
-    var newPassword = password.join("");
-    console.log(newPassword);
   }
-  if (upperCaseFound != true){
-    password = password.split("");
-    console.log(password);
+
+  if (noUpperCase){
+    var randomLetter = Math.floor(Math.random() * password.length);
+    var randomUpperCase = Math.floor(Math.random() * upperCaseArr.length);
     var splicePass = password.splice(randomLetter, 1,upperCaseArr[randomUpperCase]);
     console.log(password);
-    var newPassword = password.join("");
-    console.log(newPassword);
   }
-  if (numericFound != true){
-    password = password.split("");
-    console.log(password);
+
+  if (noNumeric){
+    var randomLetter = Math.floor(Math.random() * password.length);
+    var randomNumeric = Math.floor(Math.random() * numericArr.length);
     var splicePass = password.splice(randomLetter, 1,numericArr[randomNumeric]);
     console.log(password);
-    var newPassword = password.join("");
-    console.log(newPassword);
   }
-  if (specialChrsFound != true){
-    password = password.split("");
+
+  if (noSpecialChr){
+    var randomLetter = Math.floor(Math.random() * password.length);
+    var randomSpecialChrs = Math.floor(Math.random() * specialChrArr.length);
+    var splicePass = password.splice(randomLetter, 1,specialChrArr[randomSpecialChrs]);
     console.log(password);
-    var splicePass = password.splice(randomLetter, 1,specialChrsArr[randomSpecialChrs]);
-    console.log(password);
-    var newPassword = password.join("");
-    console.log(newPassword);
   }
+
+  var newPassword = password.join("");
+  console.log(newPassword);
 
   var passwordText = document.querySelector("#password");
   passwordText.value = newPassword;
