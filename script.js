@@ -5,34 +5,29 @@ var generateBtn = document.querySelector("#generate");
 function writePassword() {
 
   var i = true;
-  while (i) {
-    var lengthText = prompt("What is the length of the password?");
-    var stringIntoInteger = parseInt(lengthText, 10);
-    if (Number.isInteger(stringIntoInteger)){
-      if (stringIntoInteger < 8 || stringIntoInteger > 128){
-        i = true;
+  while (i) { // ask for password length
+    var passLength = prompt("What is the length of the password?");
+    var passInteger = parseInt(passLength, 10);
+    if (Number.isInteger(passInteger)){ // check if user typed an integer
+      if (passInteger < 8 || passInteger > 128){ // check if integer is below 8 or above 128, if yes try again.
         alert("Your password length needs to be between 8 to 128 characters.")
-      } else {
+      } else { // if no keep going
         i = false;
       }
-    } else if (lengthText){
-      i = true;
+    } else if (passLength){ // check if user typed anything other than an integer
       alert("Please type in a number.")
-    } else {
-      return;
-    }
+    } 
   }
 
-  var j = true
-  while (j) {
+  var j = true;
+  while (j) { // ask for character types to be included in password
     var lowerCase = confirm("Should it have lower case characters?");
     var upperCase = confirm("Should it have upper case characters?");
     var numeric = confirm("Should it have numeric characters?");
     var specialChrs = confirm("Should it have special characters?");
-    if (lowerCase === false && upperCase === false && numeric === false && specialChrs === false){
+    if (lowerCase === false && upperCase === false && numeric === false && specialChrs === false){ // if none has been picked, try again
       alert("Your password needs at least one character type.")
-      j = true;
-    } else {
+    } else { // otherwise keep going
       j = false;
     }
   }
@@ -42,99 +37,67 @@ function writePassword() {
   var numericArr = "0123456789";
   var specialChrArr = "~!@#$%^&*()_+-=,./<>?;:";
   var randomChr = "";
-  var randomNumber = "";
-  var password = "";
+  var password = [];
+  var filterAmount = 0;
 
-  if (lowerCase){
+  if (lowerCase){ // if lowercase was seleceted push a random lowercase to password
+    var randomLowerCase = Math.floor(Math.random() * lowerCaseArr.length);
+    password.push(lowerCaseArr[randomLowerCase]);
+    console.log(password);
     randomChr = randomChr + lowerCaseArr;
-    var noLowerCase = true ;
+    filterAmount++
   }
-  if (upperCase){
+  if (upperCase){ // if uppercase was seleceted push a random uppercase to password
+    var randomUpperCase = Math.floor(Math.random() * upperCaseArr.length);
+    password.push(upperCaseArr[randomUpperCase]);
+    console.log(password);
     randomChr = randomChr + upperCaseArr;
-    var noUpperCase = true ;
+    filterAmount++
   }
-  if (numeric){
+  if (numeric){ // if numeric was seleceted push a random lowercase to password
+    var randomNumeric = Math.floor(Math.random() * numericArr.length);
+    password.push(numericArr[randomNumeric]);
+    console.log(password);
     randomChr = randomChr + numericArr;
-    var noNumeric = true ;
+    filterAmount++
   }
-  if (specialChrs){
+  if (specialChrs){ // if special character was seleceted push a random sepcial character to password
+    var randomSpecialChrs = Math.floor(Math.random() * specialChrArr.length);
+    password.push(specialChrArr[randomSpecialChrs]);
+    console.log(password);
     randomChr = randomChr + specialChrArr;
-    var noSpecialChr = true ;
+    filterAmount++
   }
-
   console.log(randomChr);
 
-  for (var i=0; i<lengthText; i++) {
-    randomNumber = Math.floor(Math.random() * randomChr.length);
-    console.log(randomNumber);
+  var newRandomChr = randomChr.split(""); // turn selected chr string into an array
 
-    password = password + randomChr[randomNumber];
-    console.log(password);
+  for (var x = newRandomChr.length -1; x > 0; x--) { // shuffle selected chr array
+    var y = Math.floor(Math.random() * x)            // this might be unncessary but to really make sure it's random :)
+    var z = newRandomChr[x]
+    newRandomChr[x] = newRandomChr[y]
+    newRandomChr[y] = z
   }
+  console.log(newRandomChr);
 
-  password = password.split("");
+  for (var i=0; i<(passLength - filterAmount); i++) { // push the rest of the password array randomly
+    var randomNumber = Math.floor(Math.random() * newRandomChr.length);
+    password.push(newRandomChr[randomNumber]);
+  }
   console.log(password);
 
-  for (var i=0; i<password.length; i++) {
-    for (var j=0; j<lowerCaseArr.length; j++){
-      if (password.includes(lowerCaseArr[j])) {
-        noLowerCase = false ;
-        break;
-      }
-    }
-    for (var j=0; j<upperCaseArr.length; j++){
-      if (password.includes(upperCaseArr[j])) {
-        noUpperCase = false ;
-        break;
-      }
-    }
-    for (var j=0; j<numericArr.length; j++){
-      if (password.includes(numericArr[j])) {
-        noNumeric = false ;
-        break;
-      }
-    }
-    for (var j=0; j<specialChrArr.length; j++){
-      if (password.includes(specialChrArr[j])) {
-        noSpecialChr = false ;
-        break;
-      }
-    }
+  for (var a = password.length -1; a > 0; a--) { // shuffle password array
+    var b = Math.floor(Math.random() * a)
+    var c = password[a]
+    password[a] = password[b]
+    password[b] = c
   }
+  console.log(password);
 
-  if (noLowerCase){
-    var randomLetter = Math.floor(Math.random() * password.length);
-    var randomLowerCase = Math.floor(Math.random() * lowerCaseArr.length);
-    var splicePass = password.splice(randomLetter, 1,lowerCaseArr[randomLowerCase]);
-    console.log(password);
-  }
-
-  if (noUpperCase){
-    var randomLetter = Math.floor(Math.random() * password.length);
-    var randomUpperCase = Math.floor(Math.random() * upperCaseArr.length);
-    var splicePass = password.splice(randomLetter, 1,upperCaseArr[randomUpperCase]);
-    console.log(password);
-  }
-
-  if (noNumeric){
-    var randomLetter = Math.floor(Math.random() * password.length);
-    var randomNumeric = Math.floor(Math.random() * numericArr.length);
-    var splicePass = password.splice(randomLetter, 1,numericArr[randomNumeric]);
-    console.log(password);
-  }
-
-  if (noSpecialChr){
-    var randomLetter = Math.floor(Math.random() * password.length);
-    var randomSpecialChrs = Math.floor(Math.random() * specialChrArr.length);
-    var splicePass = password.splice(randomLetter, 1,specialChrArr[randomSpecialChrs]);
-    console.log(password);
-  }
-
-  var newPassword = password.join("");
-  console.log(newPassword);
+  var newPassword = password.join(""); // turn password array into a string
 
   var passwordText = document.querySelector("#password");
-  passwordText.value = newPassword;
+  passwordText.value = newPassword; // display generated password
 
 }
 
