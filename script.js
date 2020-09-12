@@ -132,32 +132,6 @@ function writePassword() {
     console.log(newPassword);
   }
 
-  // var randomLetterLower = Math.floor(Math.random() * password.length);
-  // var randomLetterUpper = Math.floor(Math.random() * password.length);
-  // var randomLetterNumeric = Math.floor(Math.random() * password.length);
-  // var randomLetterSpecial = Math.floor(Math.random() * password.length);
-
-  // if (lowerCase){
-  //   lowerCaseArr.split("");
-  //   password.split("");
-  //   password[randomLetterLower] = lowerCaseArr[randomLowerCase];
-  //   lowerCaseArr.join("");
-  //   password.join("");
-  //   console.log(password);
-  // }
-  // if (upperCase){
-  //   password[randomLetterUpper] = upperCaseArr[randomUpperCase];
-  //   console.log(password);
-  // }
-  // if (numeric){
-  //   password[randomLetterNumeric] = numericArr[randomNumeric];
-  //   console.log(password);
-  // }
-  // if (specialChrs){
-  //   password[randomLetterSpecial] = specialChrsArr[randomSpecialChrs];
-  //   console.log(password);
-  // }
-
   var passwordText = document.querySelector("#password");
   passwordText.value = newPassword;
 
@@ -165,6 +139,3 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-
-
-// lowerCaseArr.includes()
